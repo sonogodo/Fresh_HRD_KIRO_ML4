@@ -1,0 +1,98 @@
+{
+    "5185": {
+        "informacoes_basicas": {
+            "data_requicisao": "04-05-2021",
+            "limite_esperado_para_contratacao": "00-00-0000",
+            "titulo_vaga": "Operation Lead -",
+            "vaga_sap": "Não",
+            "cliente": "Morris, Moran and Dodson",
+            "solicitante_cliente": "Dra. Catarina Marques",
+            "empresa_divisao": "Decision São Paulo",
+            "requisitante": "Maria Laura Nogueira",
+            "analista_responsavel": "Srta. Bella Ferreira",
+            "tipo_contratacao": "CLT Full",
+            "prazo_contratacao": "",
+            "objetivo_vaga": "",
+            "prioridade_vaga": "",
+            "origem_vaga": "",
+            "superior_imediato": "Superior Imediato:",
+            "nome": "",
+            "telefone": ""
+        },
+        "perfil_vaga": {
+            "pais": "Brasil",
+            "estado": "São Paulo",
+            "cidade": "São Paulo",
+            "bairro": "",
+            "regiao": "",
+            "local_trabalho": "2000",
+            "vaga_especifica_para_pcd": "Não",
+            "faixa_etaria": "De: Até:",
+            "horario_trabalho": "",
+            "nivel profissional": "Sênior",
+            "nivel_academico": "Ensino Superior Completo",
+            "nivel_ingles": "Avançado",
+            "nivel_espanhol": "Fluente",
+            "outro_idioma": "",
+            "areas_atuacao": "TI - Sistemas e Ferramentas-",
+            "principais_atividades": "Operations Lead\n\nRoles & Responsibilities:\n• The Operations Manager is accountable for delivering the run services towards a client or a specific set of clients.\n• The Operations Manager has a firm working relation with the SDM who is accountable for the overall contractual compliance of all services and projects.\n• Responsible for the delivery of the services from multiple Service Lines.\n• Operations Manager ensures that the services are deliver according to the SLA, as well as managing the delivery of non-standard / client specific services.\n• Delivery:\no Deliver services according to SLA.\no Day-to-day management of all service delivery activities.\no Ensure consistency of delivery approach; consistent with strategy - Manage Major Incidents / client alerts.\no Drive the identification of operational cost & efficiency savings.\n• Supplier & third party management SLA services:\no Manage and coordinate with Vendor and maintain SLAs towards customer.\n• Financial:\no Achieve productivity & cost efficiency savings.\no Maintain unit costing volume, accurate forecasting and charging data (#work units/service requests/changes).\no Identify SLA up sell opportunities.\n• Client Reporting:\no Maintain SLA R&I log and follow-up actions aimed at reducing risks to service and service credits.\no Resolution of operational issues arising from client disputes - SLA Reporting to the client.\n\n.",
+            "competencia_tecnicas_e_comportamentais": "Required Skills:\n• Prior experience in Cloud Infrastructure Management technologies AWS , SAP BASIS, SQL, Oracle etc\n• Experience in the delivery of customer services to expected SLAs.\n• Be able to understand complex cross platform technical issues, contractual requirements and able to identify areas for improvement.\n• Good delegation skills, negotiation skills and people management.\n• Good customer relations skills to understand client/client representatives concerns and requirements.\n• Leadership abilities - mainly during crisis and major incidents.",
+            "demais_observacoes": "100% Remoto Período – entre 5 – 6 meses",
+            "viagens_requeridas": "",
+            "equipamentos_necessarios": "Nenhum -"
+        },
+        "beneficios": {
+            "valor_venda": "-",
+            "valor_compra_1": "R$",
+            "valor_compra_2": ""
+        }
+    },
+    "5184": {
+        "informacoes_basicas": {
+            "data_requicisao": "04-05-2021",
+            "limite_esperado_para_contratacao": "00-00-0000",
+            "titulo_vaga": "Consultor PP/QM Sênior",
+            "vaga_sap": "Não",
+            "cliente": "Morris, Moran and Dodson",
+            "solicitante_cliente": "Dra. Catarina Marques",
+            "empresa_divisao": "Decision São Paulo",
+            "requisitante": "Maria Laura Nogueira",
+            "analista_responsavel": "Yasmin da Rosa",
+            "tipo_contratacao": "CLT Full",
+            "prazo_contratacao": "",
+            "objetivo_vaga": "Contratação",
+            "prioridade_vaga": "",
+            "origem_vaga": "",
+            "superior_imediato": "Superior Imediato:",
+            "nome": "",
+            "telefone": ""
+        },
+        "perfil_vaga": {
+            "pais": "Brasil",
+            "estado": "São Paulo",
+            "cidade": "São Paulo",
+            "bairro": "",
+            "regiao": "",
+            "local_trabalho": "2000",
+            "vaga_especifica_para_pcd": "Não",
+            "faixa_etaria": "De: Até:",
+            "horario_trabalho": "",
+            "nivel profissional": "Sênior",
+            "nivel_academico": "Ensino Superior Completo",
+            "nivel_ingles": "Fluente",
+            "nivel_espanhol": "Nenhum",
+            "outro_idioma": "",
+            "areas_atuacao": "TI - Desenvolvimento/Programação-",
+            "principais_atividades": "Consultor PP/QM Sr.\n\n• Consultor PP/QM Sênior com experiencia em projetos de Rollout e implementação SAP ECC\n• Inglês mandatório\n• Remoto (Em alguns momentos / fases do projeto deverá estar presente na planta do cliente em Campinas/SP)",
+            "competencia_tecnicas_e_comportamentais": "• Consultor PP/QM Sênior com experiencia em projetos de Rollout e implementação SAP ECC\n• Inglês mandatório\n• Remoto (Em alguns momentos / fases do projeto deverá estar presente na planta do cliente em Campinas/SP)",
+            "demais_observacoes": "• Início: Imediato • Fim: Jan/22",
+            "viagens_requeridas": "",
+            "equipamentos_necessarios": "Nenhum -"
+        },
+        "beneficios": {
+            "valor_venda": "-",
+            "valor_compra_1": "R$",
+            "valor_compra_2": ""
+        }
+    }
+}

@@ -1,0 +1,61 @@
+# Exclude heavy ML components from Vercel deployment
+decision_ml/
+*.ipynb
+*.pkl
+*.joblib
+*.h5
+*.model
+
+# Exclude development files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+
+# Exclude documentation and setup files
+*.md
+!README.md
+setup_decision_ml.py
+train_decision_model.py
+test_decision_api.py
+Dockerfile
+docker-compose.yml
+
+# Exclude test files
+tests/
+*_test.py
+test_*.py
+
+# Exclude large data files
+*.csv
+*.xlsx
+*.parquet
+data/
+datasets/
+
+# Keep only essential files for Vercel
+# vercel_app.py - main app
+# decision_ml_fallback.py - lightweight fallback
+# requirements.txt - minimal dependencies
+# vercel.json - deployment config
+# index.html - frontend
+# Matching/ - original matching logic
+# JSONs/ - candidate data

@@ -1,0 +1,6 @@
+[
+    {"id": 1, "descricao": "Engenheiro de Dados com experiência em Python, SQL e AWS"},
+    {"id": 2, "descricao": "Desenvolvedor Frontend especialista em React e TypeScript"},
+    {"id": 3, "descricao": "Cientista de Dados com habilidades em Machine Learning e R"},
+    {"id": 4, "descricao": "Analista de Sistemas com conhecimento em Java e Spring"}
+]

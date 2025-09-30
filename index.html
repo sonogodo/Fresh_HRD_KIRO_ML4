@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision | Plataforma de Matchmaking Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #581c87;
+            --secondary-color: #3b82f6;
+            --accent-color: #db2777;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg-color: #ffffff;
+            --text-color: #334155;
+            --light-text-color: #64748b;
+            --border-color: #e2e8f0;
+            --font-family: 'Poppins', sans-serif;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* General Reset & Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient-primary);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+            margin-right: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Main Content & Layout */
+        main {
+            flex-grow: 1;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            background: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: var(--shadow-sm);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: var(--light-text-color);
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-family);
+        }
+
+        .tab-button.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: var(--light-text-color);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .intro .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--primary-color);
+        }
+
+        .card-description {
+            color: var(--light-text-color);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .ml-card {
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.05), rgba(219, 39, 119, 0.05));
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .ml-card::before {
+            background: var(--gradient-secondary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        textarea,
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--card-bg-color);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        textarea:focus,
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(88, 28, 135, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text-color);
+            pointer-events: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom File Input */
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: var(--primary-color);
+            background-color: #faf5ff;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-label-text {
+            color: var(--light-text-color);
+        }
+
+        #fileName {
+            display: block;
+            margin-top: 10px;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+
+        /* Buttons */
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 14px 24px;
+            margin-top: 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(88, 28, 135, 0.3);
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), #d97706);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #FFF;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Result Area */
+        .result-container {
+            margin-top: 25px;
+            border-top: 2px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .result-container h4 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-json {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #334155;
+        }
+
+        .result-cards {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .candidate-card {
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .candidate-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .candidate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .candidate-name {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .candidate-score {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .score-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .score-label {
+            color: var(--light-text-color);
+        }
+
+        .score-value {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .status-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--secondary-color);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: var(--card-bg-color);
+            border-top: 1px solid var(--border-color);
+            color: var(--light-text-color);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="https://static.wixstatic.com/media/f520ac_c75af83d4bb649d18abd658dec39f0a4~mv2.png/v1/fill/w_280,h_176,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo_decision_pequeno_home.png"
+                alt="Decision Logo" class="logo">
+            <h1>Plataforma de IA para Recrutamento</h1>
+        </div>
+        <div class="header-right">
+            <div class="status-indicator" id="systemStatus">
+                <div class="status-dot"></div>
+                <span>Sistema Online</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="intro">
+            <h2>Inteligência Artificial para Recrutamento</h2>
+            <p class="subtitle">Revolucione seu processo de seleção com tecnologia de ponta</p>
+            <p>Utilize nossos algoritmos avançados de Machine Learning para encontrar os profissionais ideais para suas
+                vagas.
+                Análise inteligente, matching preciso e decisões baseadas em dados.</p>
+        </div>
+
+        <div class="tab-navigation">
+            <button class="tab-button active" data-tab="basic">
+                <i class="fas fa-search"></i> Análise Básica
+            </button>
+            <button class="tab-button" data-tab="advanced">
+                <i class="fas fa-brain"></i> IA Avançada
+            </button>
+            <button class="tab-button" data-tab="training">
+                <i class="fas fa-cogs"></i> Treinamento
+            </button>
+        </div>
+
+        <!-- Basic Analysis Tab -->
+        <div class="tab-content active" id="basic-tab">
+            <div class="container">
+                <section class="card">
+                    <h3>
+                        <i class="fas fa-search card-icon"></i>
+                        Análise de Vaga Individual
+                    </h3>
+                    <p class="card-description">Análise rápida usando algoritmo básico de matching por palavras-chave e
+                        cobertura de competências.</p>
+                    <form id="formVagaUnica">
+                        <div class="form-group">
+                            <label for="descricao">
+                                <i class="fas fa-file-alt"></i>
+                                Descrição da Vaga
+                            </label>
+                            <textarea id="descricao" rows="5"
+                                placeholder="Cole a descrição completa da vaga aqui..."></textarea>
+                        </div>
+                        <button type="submit" id="btnMatchVaga" class="btn">
+                            <i class="fas fa-search"></i>
+                            <span>Analisar Vaga</span>
+                        </button>
+                    </form>
+                    <div class="result-container" id="vagaResultContainer" hidden>
+                        <h4>
+                            <i class="fas fa-chart-bar"></i>
+                            Resultado da Análise
+                        </h4>
+                        <div id="vagaResultCards"></div>
+                        <pre class="result-json" id="vagaResult"></pre>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h3>
+                        <i class="fas fa-layer-group card-icon"></i>
+                        Análise de Múltiplas Vagas
+                    </h3>
+                    <p class="card-description">Processe múltiplas vagas simultaneamente usando o arquivo JSON padrão da
+                        Decision.</p>
+                    <form id="formVagasMultiplas">
+                        <div class="form-group">
+                            <label for="vagasFile">
+                                <i class="fas fa-upload"></i>
+                                Carregar Arquivo (.json)
+                            </label>
+                            <div class="file-input-wrapper">
+                                <span class="file-label-text">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    Clique para selecionar um arquivo
+                                </span>
+                                <input type="file" id="vagasFile" accept=".json">
+                                <span id="fileName"></span>
+                            </div>
+                        </div>
+                        <button type="submit" id="btnMatchVagas" class="btn">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Analisar Arquivo</span>
+                        </button>
+                    </form>
+                    <div class="result-container" id="vagasResultContainer" hidden>
+                        <h4>
+                            <i class="fas fa-chart-line"></i>
+                            Resultado da Análise
+                        </h4>
+                        <pre class="result-json" id="vagasResult"></pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Advanced AI Tab -->
+        <div class="tab-content" id="advanced-tab">
+            <div class="container">
+                <section class="card ml-card">
+                    <h3>
+                        <i class="fas fa-brain card-icon"></i>
+                        Análise com IA Avançada
+                    </h3>
+                    <p class="card-description">Utilize nosso modelo de Machine Learning treinado com dados da Decision
+                        para análises mais precisas e detalhadas.</p>
+                    <form id="formDecisionML">
+                        <div class="form-group">
+                            <label for="mlJobDescription">
+                                <i class="fas fa-robot"></i>
+                                Descrição da Vaga (IA)
+                            </label>
+                            <textarea id="mlJobDescription" rows="6"
+                                placeholder="Descreva a vaga em detalhes. Inclua requisitos técnicos, experiência necessária, responsabilidades..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="topCandidates">
+                                    <i class="fas fa-users"></i>
+                                    Top Candidatos
+                                </label>
+                                <select id="topCandidates">
+                                    <option value="3">Top 3</option>
+                                    <option value="5">Top 5</option>
+                                    <option value="10">Top 10</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="analysisMode">
+                                    <i class="fas fa-sliders-h"></i>
+                                    Modo de Análise
+                                </label>
+                                <select id="analysisMode">
+                                    <option value="balanced">Balanceado</option>
+                                    <option value="skills">Foco em Skills</option>
+                                    <option value="experience">Foco em Experiência</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" id="btnDecisionML" class="btn btn-secondary">
+                            <i class="fas fa-magic"></i>
+                            <span>Analisar com IA</span>
+                        </button>
+                    </form>
+                    <div class="result-container" id="mlResultContainer" hidden>
+                        <h4>
+                            <i class="fas fa-chart-pie"></i>
+                            Análise Detalhada por IA
+                        </h4>
+                        <div id="mlResultCards"></div>
+                        <pre class="result-json" id="mlResult"></pre>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h3>
+                        <i class="fas fa-tachometer-alt card-icon"></i>
+                        Status do Sistema IA
+                    </h3>
+                    <p class="card-description">Monitore o status do modelo de Machine Learning e métricas de
+                        performance.</p>
+                    <div id="systemStatusContainer">
+                        <div class="status-message status-info">
+                            <i class="fas fa-info-circle"></i>
+                            Carregando status do sistema...
+                        </div>
+                    </div>
+                    <button type="button" id="btnCheckStatus" class="btn btn-small">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Atualizar Status</span>
+                    </button>
+                </section>
+            </div>
+        </div>
+
+        <!-- Training Tab -->
+        <div class="tab-content" id="training-tab">
+            <div class="container">
+                <section class="card ml-card">
+                    <h3>
+                        <i class="fas fa-cogs card-icon"></i>
+                        Treinamento do Modelo IA
+                    </h3>
+                    <p class="card-description">Treine ou retreine o modelo de Machine Learning com os dados mais
+                        recentes da Decision.</p>
+                    <div id="trainingStatusContainer">
+                        <div class="status-message status-info">
+                            <i class="fas fa-info-circle"></i>
+                            Pronto para iniciar treinamento
+                        </div>
+                    </div>
+                    <form id="formTraining">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="jobsPath">
+                                    <i class="fas fa-briefcase"></i>
+                                    Arquivo de Vagas
+                                </label>
+                                <input type="text" id="jobsPath" value="JSONs_DECISION/vagas_padrao.json" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="candidatesPath">
+                                    <i class="fas fa-user-tie"></i>
+                                    Arquivo de Candidatos
+                                </label>
+                                <input type="text" id="candidatesPath" value="JSONs_DECISION/candidates.json" readonly>
+                            </div>
+                        </div>
+                        <button type="submit" id="btnStartTraining" class="btn btn-warning">
+                            <i class="fas fa-play"></i>
+                            <span>Iniciar Treinamento</span>
+                        </button>
+                    </form>
+                    <div class="result-container" id="trainingResultContainer" hidden>
+                        <h4>
+                            <i class="fas fa-chart-line"></i>
+                            Progresso do Treinamento
+                        </h4>
+                        <pre class="result-json" id="trainingResult"></pre>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h3>
+                        <i class="fas fa-chart-bar card-icon"></i>
+                        Monitoramento e Métricas
+                    </h3>
+                    <p class="card-description">Visualize métricas de performance, drift detection e relatórios do
+                        sistema.</p>
+                    <div class="form-row">
+                        <button type="button" id="btnHealthCheck" class="btn btn-success btn-small">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Health Check</span>
+                        </button>
+                        <button type="button" id="btnGenerateReport" class="btn btn-small">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Gerar Relatório</span>
+                        </button>
+                    </div>
+                    <div class="result-container" id="monitoringResultContainer" hidden>
+                        <h4>
+                            <i class="fas fa-monitor"></i>
+                            Relatório de Monitoramento
+                        </h4>
+                        <pre class="result-json" id="monitoringResult"></pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 Decision - Tecnologia e Inovação. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Tab Management ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.dataset.tab;
+
+                    // Update active tab button
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Update active tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${targetTab}-tab`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // --- Element Selectors ---
+            const formVagaUnica = document.getElementById('formVagaUnica');
+            const descricaoInput = document.getElementById('descricao');
+            const btnMatchVaga = document.getElementById('btnMatchVaga');
+            const vagaResultContainer = document.getElementById('vagaResultContainer');
+            const vagaResultPre = document.getElementById('vagaResult');
+            const vagaResultCards = document.getElementById('vagaResultCards');
+
+            const formVagasMultiplas = document.getElementById('formVagasMultiplas');
+            const vagasFileInput = document.getElementById('vagasFile');
+            const fileNameSpan = document.getElementById('fileName');
+            const btnMatchVagas = document.getElementById('btnMatchVagas');
+            const vagasResultContainer = document.getElementById('vagasResultContainer');
+            const vagasResultPre = document.getElementById('vagasResult');
+
+            // Decision ML Elements
+            const formDecisionML = document.getElementById('formDecisionML');
+            const mlJobDescriptionInput = document.getElementById('mlJobDescription');
+            const topCandidatesSelect = document.getElementById('topCandidates');
+            const btnDecisionML = document.getElementById('btnDecisionML');
+            const mlResultContainer = document.getElementById('mlResultContainer');
+            const mlResultPre = document.getElementById('mlResult');
+            const mlResultCards = document.getElementById('mlResultCards');
+
+            // Training Elements
+            const formTraining = document.getElementById('formTraining');
+            const btnStartTraining = document.getElementById('btnStartTraining');
+            const trainingStatusContainer = document.getElementById('trainingStatusContainer');
+            const trainingResultContainer = document.getElementById('trainingResultContainer');
+            const trainingResultPre = document.getElementById('trainingResult');
+
+            // Monitoring Elements
+            const btnCheckStatus = document.getElementById('btnCheckStatus');
+            const btnHealthCheck = document.getElementById('btnHealthCheck');
+            const btnGenerateReport = document.getElementById('btnGenerateReport');
+            const systemStatusContainer = document.getElementById('systemStatusContainer');
+            const monitoringResultContainer = document.getElementById('monitoringResultContainer');
+            const monitoringResultPre = document.getElementById('monitoringResult');
+
+            // --- UI Helper Functions ---
+            const toggleLoading = (button, isLoading, loadingText = 'Processando...') => {
+                button.disabled = isLoading;
+                const buttonText = button.querySelector('span');
+                const icon = button.querySelector('i');
+
+                if (isLoading) {
+                    if (icon) icon.className = 'fas fa-spinner fa-spin';
+                    buttonText.textContent = loadingText;
+                } else {
+                    buttonText.textContent = button.dataset.originalText;
+                    if (icon && button.dataset.originalIcon) {
+                        icon.className = button.dataset.originalIcon;
+                    }
+                }
+            };
+
+            const displayResult = (container, preElement, data) => {
+                preElement.textContent = JSON.stringify(data, null, 2);
+                container.hidden = false;
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+
+            const displayCandidateCards = (container, candidates, isML = false) => {
+                if (!candidates || candidates.length === 0) return;
+
+                container.innerHTML = '';
+                candidates.forEach((candidate, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'candidate-card';
+
+                    const score = isML ? candidate.score : (candidate.score / 100);
+                    const scorePercentage = Math.round(score * 100);
+
+                    let detailsHTML = '';
+                    if (isML && candidate.detailed_scores) {
+                        detailsHTML = `
+                            <div class="score-details">
+                                <div class="score-item">
+                                    <span class="score-label">Skills</span>
+                                    <span class="score-value">${Math.round(candidate.detailed_scores.skill_match)}%</span>
+                                </div>
+                                <div class="score-item">
+                                    <span class="score-label">Experiência</span>
+                                    <span class="score-value">${Math.round(candidate.detailed_scores.experience_compatibility)}%</span>
+                                </div>
+                                <div class="score-item">
+                                    <span class="score-label">Educação</span>
+                                    <span class="score-value">${Math.round(candidate.detailed_scores.education_compatibility)}%</span>
+                                </div>
+                                <div class="score-item">
+                                    <span class="score-label">Idiomas</span>
+                                    <span class="score-value">${Math.round(candidate.detailed_scores.language_compatibility)}%</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        <div class="candidate-header">
+                            <div class="candidate-name">
+                                <i class="fas fa-user"></i> ${candidate.candidato}
+                            </div>
+                            <div class="candidate-score">${scorePercentage}%</div>
+                        </div>
+                        ${detailsHTML}
+                    `;
+
+                    container.appendChild(card);
+                });
+            };
+
+            const showStatusMessage = (container, message, type = 'info', icon = 'info-circle') => {
+                container.innerHTML = `
+                    <div class="status-message status-${type}">
+                        <i class="fas fa-${icon}"></i>
+                        ${message}
+                    </div>
+                `;
+            };
+
+            // --- Store Original Button States ---
+            const buttons = [btnMatchVaga, btnMatchVagas, btnDecisionML, btnStartTraining, btnCheckStatus, btnHealthCheck, btnGenerateReport];
+            buttons.forEach(btn => {
+                if (btn) {
+                    const span = btn.querySelector('span');
+                    const icon = btn.querySelector('i');
+                    if (span) btn.dataset.originalText = span.textContent;
+                    if (icon) btn.dataset.originalIcon = icon.className;
+                }
+            });
+
+            // --- System Status Check ---
+            const checkSystemStatus = async () => {
+                try {
+                    const response = await fetch('/health');
+                    const data = await response.json();
+
+                    const statusElement = document.getElementById('systemStatus');
+                    const statusDot = statusElement.querySelector('.status-dot');
+                    const statusText = statusElement.querySelector('span');
+
+                    if (data.status === 'healthy') {
+                        statusDot.style.background = 'var(--success-color)';
+                        statusText.textContent = 'Sistema Online';
+
+                        if (data.components && data.components.decision_ml === 'available') {
+                            statusText.textContent += ' (IA Disponível)';
+                        }
+                    } else {
+                        statusDot.style.background = 'var(--error-color)';
+                        statusText.textContent = 'Sistema com Problemas';
+                    }
+                } catch (error) {
+                    console.error('Erro ao verificar status:', error);
+                }
+            };
+
+            // Check system status on load
+            checkSystemStatus();
+            setInterval(checkSystemStatus, 30000); // Check every 30 seconds
+
+            // --- Event Listeners ---
+
+            // Handle single job submission (Basic)
+            formVagaUnica.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const descricao = descricaoInput.value.trim();
+                if (!descricao) {
+                    alert('Por favor, insira a descrição da vaga.');
+                    return;
+                }
+
+                toggleLoading(btnMatchVaga, true, 'Analisando...');
+
+                try {
+                    const formData = new FormData();
+                    formData.append('descricao', descricao);
+
+                    const res = await fetch('/match_vaga', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+
+                    const data = await res.json();
+                    displayCandidateCards(vagaResultCards, data.top_candidatos, false);
+                    displayResult(vagaResultContainer, vagaResultPre, data);
+
+                } catch (error) {
+                    console.error('Erro ao processar a vaga:', error);
+                    const errorData = { erro: 'Não foi possível conectar ao servidor ou processar a resposta.', detalhes: error.message };
+                    displayResult(vagaResultContainer, vagaResultPre, errorData);
+                } finally {
+                    toggleLoading(btnMatchVaga, false);
+                }
+            });
+
+            // Handle multiple jobs submission
+            vagasFileInput.addEventListener('change', () => {
+                fileNameSpan.textContent = vagasFileInput.files.length > 0 ? vagasFileInput.files[0].name : '';
+            });
+
+            formVagasMultiplas.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!vagasFileInput.files.length) {
+                    alert('Por favor, selecione um arquivo JSON!');
+                    return;
+                }
+
+                toggleLoading(btnMatchVagas, true, 'Processando arquivo...');
+
+                try {
+                    const formData = new FormData();
+                    formData.append('file', vagasFileInput.files[0]);
+
+                    const res = await fetch('/match_vagas', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+
+                    const data = await res.json();
+                    displayResult(vagasResultContainer, vagasResultPre, data);
+
+                } catch (error) {
+                    console.error('Erro ao processar o arquivo de vagas:', error);
+                    const errorData = { erro: 'Não foi possível conectar ao servidor ou processar a resposta.', detalhes: error.message };
+                    displayResult(vagasResultContainer, vagasResultPre, errorData);
+                } finally {
+                    toggleLoading(btnMatchVagas, false);
+                }
+            });
+
+            // Handle Decision ML prediction
+            formDecisionML.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const jobDescription = mlJobDescriptionInput.value.trim();
+                const topK = topCandidatesSelect.value;
+
+                if (!jobDescription) {
+                    alert('Por favor, insira a descrição da vaga.');
+                    return;
+                }
+
+                toggleLoading(btnDecisionML, true, 'Analisando com IA...');
+
+                try {
+                    const formData = new FormData();
+                    formData.append('job_description', jobDescription);
+                    formData.append('top_k', topK);
+
+                    const res = await fetch('/decision/predict', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!res.ok) {
+                        const errorData = await res.json();
+                        throw new Error(errorData.detail || `HTTP error! status: ${res.status}`);
+                    }
+
+                    const data = await res.json();
+                    displayCandidateCards(mlResultCards, data.top_candidatos, true);
+                    displayResult(mlResultContainer, mlResultPre, data);
+
+                } catch (error) {
+                    console.error('Erro na análise com IA:', error);
+                    const errorData = {
+                        erro: 'Erro na análise com IA',
+                        detalhes: error.message,
+                        sugestao: 'Verifique se o modelo foi treinado na aba "Treinamento"'
+                    };
+                    displayResult(mlResultContainer, mlResultPre, errorData);
+                } finally {
+                    toggleLoading(btnDecisionML, false);
+                }
+            });
+
+            // Handle training
+            formTraining.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                toggleLoading(btnStartTraining, true, 'Iniciando treinamento...');
+                showStatusMessage(trainingStatusContainer, 'Iniciando treinamento do modelo...', 'warning', 'cog');
+
+                try {
+                    const res = await fetch('/decision/train', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            jobs_path: 'JSONs_DECISION/vagas_padrao.json',
+                            candidates_path: 'JSONs_DECISION/candidates.json'
+                        })
+                    });
+
+                    if (!res.ok) {
+                        const errorData = await res.json();
+                        throw new Error(errorData.detail || `HTTP error! status: ${res.status}`);
+                    }
+
+                    const data = await res.json();
+                    showStatusMessage(trainingStatusContainer, 'Treinamento iniciado com sucesso! Acompanhe o progresso abaixo.', 'success', 'check-circle');
+
+                    // Start polling for training status
+                    pollTrainingStatus();
+
+                } catch (error) {
+                    console.error('Erro ao iniciar treinamento:', error);
+                    showStatusMessage(trainingStatusContainer, `Erro ao iniciar treinamento: ${error.message}`, 'error', 'exclamation-triangle');
+                } finally {
+                    toggleLoading(btnStartTraining, false);
+                }
+            });
+
+            // Poll training status
+            const pollTrainingStatus = async () => {
+                try {
+                    const res = await fetch('/decision/status');
+                    const data = await res.json();
+
+                    displayResult(trainingResultContainer, trainingResultPre, data);
+
+                    if (data.status === 'training') {
+                        showStatusMessage(trainingStatusContainer, 'Treinamento em progresso...', 'warning', 'spinner fa-spin');
+                        setTimeout(pollTrainingStatus, 5000); // Poll every 5 seconds
+                    } else if (data.status === 'completed') {
+                        showStatusMessage(trainingStatusContainer,
+                            `Treinamento concluído! Melhor modelo: ${data.best_model} (Score: ${data.best_score?.toFixed(4)})`,
+                            'success', 'check-circle');
+                    } else if (data.status === 'failed') {
+                        showStatusMessage(trainingStatusContainer, `Treinamento falhou: ${data.message}`, 'error', 'exclamation-triangle');
+                    }
+                } catch (error) {
+                    console.error('Erro ao verificar status do treinamento:', error);
+                }
+            };
+
+            // Handle status check
+            btnCheckStatus.addEventListener('click', async () => {
+                toggleLoading(btnCheckStatus, true, 'Verificando...');
+
+                try {
+                    const res = await fetch('/decision/status');
+                    const data = await res.json();
+
+                    let statusType = 'info';
+                    let statusIcon = 'info-circle';
+                    let message = 'Status do sistema carregado';
+
+                    if (data.status === 'completed') {
+                        statusType = 'success';
+                        statusIcon = 'check-circle';
+                        message = `Modelo treinado e pronto! Melhor modelo: ${data.best_model}`;
+                    } else if (data.status === 'training') {
+                        statusType = 'warning';
+                        statusIcon = 'spinner fa-spin';
+                        message = 'Modelo em treinamento...';
+                    } else if (data.status === 'failed') {
+                        statusType = 'error';
+                        statusIcon = 'exclamation-triangle';
+                        message = 'Falha no treinamento do modelo';
+                    }
+
+                    showStatusMessage(systemStatusContainer, message, statusType, statusIcon);
+
+                } catch (error) {
+                    showStatusMessage(systemStatusContainer, 'Erro ao verificar status', 'error', 'exclamation-triangle');
+                } finally {
+                    toggleLoading(btnCheckStatus, false);
+                }
+            });
+
+            // Handle health check
+            btnHealthCheck.addEventListener('click', async () => {
+                toggleLoading(btnHealthCheck, true, 'Verificando...');
+
+                try {
+                    const res = await fetch('/decision/monitoring/health');
+                    const data = await res.json();
+                    displayResult(monitoringResultContainer, monitoringResultPre, data);
+                } catch (error) {
+                    const errorData = { erro: 'Erro ao verificar saúde do sistema', detalhes: error.message };
+                    displayResult(monitoringResultContainer, monitoringResultPre, errorData);
+                } finally {
+                    toggleLoading(btnHealthCheck, false);
+                }
+            });
+
+            // Handle report generation
+            btnGenerateReport.addEventListener('click', async () => {
+                toggleLoading(btnGenerateReport, true, 'Gerando...');
+
+                try {
+                    const res = await fetch('/decision/monitoring/report');
+                    const data = await res.json();
+                    displayResult(monitoringResultContainer, monitoringResultPre, data);
+                } catch (error) {
+                    const errorData = { erro: 'Erro ao gerar relatório', detalhes: error.message };
+                    displayResult(monitoringResultContainer, monitoringResultPre, errorData);
+                } finally {
+                    toggleLoading(btnGenerateReport, false);
+                }
+            });
+
+            // Initial status check for ML system
+            btnCheckStatus.click();
+        });
+    </script>
+</body>
+
+</html>
